@@ -3,8 +3,8 @@
 # PhpStorm URL Handler
 # phpstorm://open?url=file://@file&line=@line
 # phpstorm://open?file=@file&line=@line
-# phpstorm://open?url=file://@file:@line
-# phpstorm://open?file=@file:line
+# pstorm://open?url=file://@file:@line
+# pstorm://open?file=@file:line
 #
 # @license GPL
 # @author Stefan Auditor <stefan@auditor.email>
