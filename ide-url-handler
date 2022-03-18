@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# IDE URL Handler
+# ide://open?url=file://@file&line=@line
+# ide://open?file=@file&line=@line
+#
+# @license GPL
+# @author David Des Aunais <david.desaunais@dtraa.fr>
+# @thanks Stefan Auditor <stefan@auditor.email>
+
+function urldecode() { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
+
+arg=$(urldecode "${1}")
+pattern=".*file(:\/\/|\=)(.*)(:|&line=)(.*)"
+
+# Get the file path.
+file=$(echo "${arg}" | sed -r "s/${pattern}/\2/")
+
+# Get the line number.
+line=$(echo "${arg}" | sed -r "s/${pattern}/\4/")
+
+# Check if ide command exist.
+if type ide > /dev/null; then
+    /usr/bin/env ide --line "${line}" "${file}"
+fi
+
+if type wmctrl > /dev/null; then
+    filename=$(basename "$file")
+    /usr/bin/env wmctrl -i -a $(wmctrl -l | grep "${filename}" | tail -n 1 | cut -d ' ' -f1)
+fi
+
+exit 0
