@@ -6,27 +6,56 @@ Specification for use in Gnome and KDE desktop environments.
 
 ## Installation
 
-The executable `phpstorm` or `pstorm` must be in your `$PATH`.
-If it is not, either add the install location to your path
+### PHPStorm
 
-    export PATH="/path/to/phpstorm/bin/phpstorm.sh:$PATH"
+Then copy the actual handler to `/usr/bin` or `/usr/local/bin` and make it executable.
+Use `sudo` if needed
+```
+cp phpstorm-url-handler /usr/bin/phpstorm-url-handler
+chmod +x /usr/bin/phpstorm-url-handler
+```
+or
+```
+cp phpstorm-url-handler /usr/local/bin/phpstorm-url-handler
+chmod +x /usr/local/bin/phpstorm-url-handler
+```
+Install the `.desktop` file to register the mime-types.
+Use `sudo` if needed
+```
+desktop-file-install phpstorm-url-handler.desktop
+update-desktop-database
+```
+In **Symfony** project, add in `config.yml` file this parameter.
+```
+framework:
+    ...
+    ide: 'phpstorm://open?url=file://%%f&line=%%l'
+```
+### IDE (other)
 
-or symlink it to one of `/usr/bin` or `/usr/local/bin` - which already should be in your `$PATH`.
+Then copy the actual handler to `/usr/bin` or `/usr/local/bin` and make it executable.
 Use `sudo` if needed
 
-    ln -s /path/to/phpstorm/bin/phpstorm.sh /usr/bin/phpstorm
+    cp ide-url-handler /usr/bin/ide-url-handler
+    chmod +x /usr/bin/ide-url-handler
 
-Then copy the actual handler to your `$PATH` and make it executable.
-Use `sudo` if needed
+or
 
-    cp phpstorm-url-handler /usr/bin/phpstorm-url-handler
-    chmod +x /usr/bin/phpstorm-url-handler
+    cp ide-url-handler /usr/local/bin/ide-url-handler
+    chmod +x /usr/local/bin/ide-url-handler
 
 Install the `.desktop` file to register the mime-types.
 Use `sudo` if needed
 
-    desktop-file-install phpstorm-url-handler.desktop
+    desktop-file-install ide-url-handler.desktop
     update-desktop-database
+
+In **Symfony** project, add in `config.yml` file this parameter.
+```
+framework:
+    ...
+    ide: 'ide://open?url=file://%%f&line=%%l'
+```
 
 ## Usage
 
